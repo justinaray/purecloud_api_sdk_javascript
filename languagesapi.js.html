@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Tutorial: call_list_management</title>
+    <title>JSDoc: Source: languagesapi.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,55 +17,79 @@
 
 <div id="main">
 
-    <h1 class="page-title">Tutorial: call_list_management</h1>
+    <h1 class="page-title">Source: languagesapi.js</h1>
 
-    <section>
-
-<header>
     
 
-    <h2>call_list_management</h2>
-</header>
-
-<article>
-    <p>There might be scenarios where contact records need to be individually added to a campaign.  We can use the PureCloud.outbound.contactlists.contacts.createDialerContacts method to add new records.  The data field of the contact is a hash of contact list column and the value where the key is the call list column name.</p>
-<p>Campaigns will most likely need to be restarted after contacts are added.  We can use the PureCloud.outbound.campaigns.getDialerCampaign and PureCloud.outbound.campaigns.updateDialerCampaign methods to start the campaign.  We first call getDialerCampaign to get the current information on the campaign, then we will set campaignStatus to &quot;on&quot; and update the campaign.  It is important to get the campaign details first because there is a version on the campaign and the data that you post to the server needs to have the same version as the current version in the system.</p>
-<p>Example Code:</p>
-<pre class="prettyprint source"><code>var contactListId = &quot;3a662786-7e9e-4d2c-95d6-52b55f706900&quot;;
-var campaignId = &quot;d4928cd4-f6a2-40b2-9646-2ac2502fa067&quot;;
-
-function addContactToList(name, number){
-    var contactData = [
-                        {
-                            &quot;contactListId&quot;: contactListId,
-                            &quot;data&quot;: {
-                                &quot;Name&quot;: name,
-                                &quot;Number&quot;: number
-                            },
-                            &quot;callable&quot;: true
-                        }
-                        ];
-
-    PureCloud.outbound.contactlists.contacts.createDialerContacts(contactListId, contactData, true).done(function(){
-        console.log(&quot;contact added to list&quot;)
-    });
-}
 
 
-function startCampaign(){
-    //get campaign information
-    PureCloud.outbound.campaigns.getDialerCampaign(campaignId).done(function(campaignInfo){
-                //if campaign is not on, update it so it is on.
-                if(campaignInfo.campaignStatus !== &quot;on&quot;){
-                    data.campaignStatus = &quot;on&quot;;
-                    PureCloud.outbound.campaigns.updateDialerCampaign(campaignId, data);
-                }
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+* @class
+* @example
+* var api = new LanguagesApi(pureCloudSession);
+*/
+var LanguagesApi = function (pureCloudSession) {
+	/**
+     * Get the list of supported languages.
+	 * @memberOf LanguagesApi#
+	* @param {integer} pageSize - Page size
+	* @param {integer} pageNumber - Page number
+	*/
+	function get(pageSize, pageNumber){
+		var apipath = '/api/v1/languages';
+	    var requestBody;
+	    var queryParameters = {};
+	    var headers = {};
+	    var form = {};
 
-            });
-}</code></pre>
-</article>
 
-</section>
+		if(pageSize !== undefined &amp;&amp; pageSize !== null){
+			queryParameters.pageSize = pageSize;
+		}
+
+
+		if(pageNumber !== undefined &amp;&amp; pageNumber !== null){
+			queryParameters.pageNumber = pageNumber;
+		}
+
+
+		return pureCloudSession.makeRequest('GET', apipath + '?' +$.param(queryParameters), requestBody);
+	}
+	self.get = get;
+	/**
+     * Get language
+	 * @memberOf LanguagesApi#
+	* @param {string} languageId - Language ID
+	*/
+	function getLanguage(languageId){
+		var apipath = '/api/v1/languages/{languageId}';
+	    var requestBody;
+	    var queryParameters = {};
+	    var headers = {};
+	    var form = {};
+
+        apipath = apipath.replace('{languageId}', languageId);
+
+        if(languageId === undefined &amp;&amp; languageId !== null){
+			throw 'Missing required  parameter: languageId';
+        }
+
+
+		return pureCloudSession.makeRequest('GET', apipath + '?' +$.param(queryParameters), requestBody);
+	}
+	self.getLanguage = getLanguage;
+
+    return self;
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
 
 </div>
 

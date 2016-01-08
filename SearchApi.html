@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Tutorial: paging</title>
+    <title>JSDoc: Class: SearchApi</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,56 +17,280 @@
 
 <div id="main">
 
-    <h1 class="page-title">Tutorial: paging</h1>
+    <h1 class="page-title">Class: SearchApi</h1>
 
-    <section>
+    
+
+
+
+
+<section>
 
 <header>
     
-
-    <h2>paging</h2>
+        <h2>
+        SearchApi
+        </h2>
+        
+    
 </header>
 
 <article>
-    <p>Methods that return list of data are returned in pages.  These requests will also return page urls for convenience.  The GET methods contain the page you want to get so there are two ways to handle paging. The paged response will look something like This</p>
-<pre class="prettyprint source"><code>{
-  &quot;pageSize&quot;: 10,
-  &quot;pageNumber&quot;: 2,
-  &quot;total&quot;: 5682,
-  &quot;entities&quot;: [],
-  &quot;selfUri&quot;: &quot;https://public-api.us-east-1.mypurecloud.com/api/v1/users?pageSize=10&pageNumber=2&quot;,
-  &quot;nextUri&quot;: &quot;https://public-api.us-east-1.mypurecloud.com/api/v1/users?pageSize=10&pageNumber=3&quot;,
-  &quot;previousUri&quot;: &quot;https://public-api.us-east-1.mypurecloud.com/api/v1/users?pageSize=10&pageNumber=1&quot;,
-  &quot;lastUri&quot;: &quot;https://public-api.us-east-1.mypurecloud.com/api/v1/users?pageSize=10&pageNumber=569&quot;,
-  &quot;firstUri&quot;: &quot;https://public-api.us-east-1.mypurecloud.com/api/v1/users?pageSize=10&pageNumber=1&quot;,
-  &quot;pageCount&quot;: 569
-}</code></pre><p>and has properties that tell the total number of pages given the page size, the current page and the total number of entries.</p>
-<p><strong> Specify Page Index </strong></p>
-<p>We can start by passing in our page size and page number into the method. After we get the response for page 1, we then continue with the request to get page 2.</p>
-<pre class="prettyprint source"><code>//Get page 1 with a page size of 10
-PureCloud.users.GetUsers(10, 1).done(function(data){
-    // do something with the response
+    <div class="container-overview">
+    
+        
 
-    //Get page 2 with a page size of 10
-    PureCloud.users.GetUsers(10, 2).done(function(data){
-        // do something with the response
-    });
+    
 
-});</code></pre><p><strong> Using the Page URIs </strong></p>
-<p>After getting the first page of users, we can use uris provided in the response to get other pages. The response contains URIs for other pages in the nextUri, previousUri, lastUri and firtUri properties.  Note that if the current page doesn't have a next or previous page then those properties will not be defined on the object.  Using these uris, we have another way to get the next page</p>
-<pre class="prettyprint source"><code>//Get page 1 with a page size of 10
-PureCloud.users.GetUsers(10, 0).done(function(data){
-    // do something with the response
+    <h4 class="name" id="SearchApi"><span class="type-signature"></span>new SearchApi<span class="signature">()</span><span class="type-signature"></span></h4>
 
-    //Get the next page
-    PureCloud.get(data.nextUri).done(function(data){
-        // do something with the response
-    });
+    
 
-});</code></pre><p>see https://github.com/MyPureCloud/purecloud_javascript_client/blob/master/examples/user_paging.html for a full example.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="searchapi.js.html">searchapi.js</a>, <a href="searchapi.js.html#line6">line 6</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var api = new SearchApi(pureCloudSession);</code></pre>
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="createChats"><span class="type-signature"></span>createChats<span class="signature">(body)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Search chat history
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>body</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Search request options</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="searchapi.js.html">searchapi.js</a>, <a href="searchapi.js.html#line24">line 24</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Body Example:
+{
+   "query": "",
+   "order": "",
+   "targetJids": [],
+   "pageSize": 0,
+   "pageNumber": 0,
+   "fromDate": "",
+   "toDate": "",
+   "expand": ""
+}</code></pre>
+
+
+
+        
+    
+
+    
+
+    
 </article>
 
 </section>
+
+
+
 
 </div>
 
